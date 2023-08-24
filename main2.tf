@@ -1,4 +1,4 @@
-# Making a terraform application by assigning the IAM role on an AWS EC2 instance.
+# Making a terraform application by assigning the IAM role to the AWS EC2 instance and making a remote-ssh connection.
 # In the configuration, EC2 instance and S3 bucket are created.
 terraform {
   required_providers {
