@@ -1,0 +1,4 @@
+export TF_VAR_s3_bucket_name=mhan-env-variable-bucket  (TF_VAR --> environment variable   s3_bucket_name --> variable )
+terraform plan  # env.var anımlandıktan sonra terraform plan + apply çalıştırılırsa bu export ile atanan env.var. değerinde s3 bucket oluşur.)
+
+unset TF_VAR_s3_bucket_name
