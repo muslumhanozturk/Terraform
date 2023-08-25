@@ -1,31 +1,25 @@
-locals {                          # A local value assigns a name to an expression, so you can use it multiple times within a module without repeating it.
-    mytag = "mhan-local-name"
+provider "aws" {
+  region  = "us-east-1"
 }
 
-variable "ec2_type" {
-  default = "t2.micro"
-}
-
-variable "ec2_ami" {
-  default = "ami-08a52ddb321b32a8c"
-}
-
-resource "aws_instance" "tf-ec2" {
-  ami           = var.ec2_ami
-  instance_type = var.ec2_type
-  key_name      = "second-key-pair"
-  tags = {
-    Name = "${local.mytag}-come from locals"                  ###   < ---
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "5.13.1"
+    }
   }
+}
+
+variable "num_of_buckets" {        # This block defines a variable where users can change the number of S3 buckets. It is set to 2 by default.
+  default = 2
 }
 
 variable "s3_bucket_name" {
-  default = "mhan-s3-bucket-variable-addwhateveryouwant"
+  default     = "mhan-new-s3-bucket-addwhateveryouwant"
 }
 
 resource "aws_s3_bucket" "tf-s3" {
-  bucket = var.s3_bucket_name
-  tags = {
-    Name = "${local.mytag}-come-from-locals"                  ###   < ---
-  }
+  bucket = "${var.s3_bucket_name}-${count.index}"     ### < ---
+  count = var.num_of_buckets                          ### < ---
 }
