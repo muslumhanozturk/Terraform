@@ -55,7 +55,7 @@ resource "aws_instance" "tf-ec2" {
   
 }
 
-# resource "aws_s3_bucket" "tf-test-1" {
+# resource "aws_s3_bucket" "tf-test-1" {               # When we apply these two resource codes in turn, we see that the .tfstate file in the s3 bucket is versioned.
 #   bucket = "clarusway-test-1-versioning"
 # }
 
