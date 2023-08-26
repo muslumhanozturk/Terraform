@@ -61,6 +61,6 @@ resource "aws_instance" "tf-ec2" {
 # }
 
 # resource "aws_s3_bucket" "tf-test-2" {
-#   bucket = "clarusway-test-2-locking-2"
+#   bucket = "clarusway-test-2-versioning"
 # }
 
