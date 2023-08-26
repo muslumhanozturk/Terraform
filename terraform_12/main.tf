@@ -8,8 +8,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "tf-remote-s3-bucket-mhan"
-    key = "env/dev/tf-remote-backend.tfstate"
+    bucket = "tf-remote-s3-bucket-mhan"              # is the Amazon S3 bucket where the stop files will be stored.
+    key = "env/dev/tf-remote-backend.tfstate"        # Specifies the path to the stop file.
     region = "us-east-1"
     dynamodb_table = "tf-s3-app-lock"
     encrypt = true
