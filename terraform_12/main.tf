@@ -1,3 +1,4 @@
+# Associate the S3 package with the Dynamodb table.
 terraform {
   required_providers {
     aws = {
