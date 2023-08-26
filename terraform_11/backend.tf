@@ -1,3 +1,4 @@
+# Creating an S3 bucket and a Dynamodb table
 provider "aws" {
   region = "us-east-1"
 }
