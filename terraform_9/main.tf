@@ -12,7 +12,7 @@ terraform {
 }
 
 variable "num_of_buckets" {
-  default = 0
+  default = 2
 }
 
 variable "s3_bucket_name" {
