@@ -1,3 +1,11 @@
+- Bringing existing infrastructure under Terraform's control involves five main steps:
+
+  1. Identify the existing infrastructure to be imported.
+  2. Import infrastructure into your Terraform state.
+  3. Write Terraform configuration that matches that infrastructure.
+  4. Review the Terraform plan to ensure the configuration matches the expected state and infrastructure.
+  5. Apply the configuration to update your Terraform state.
+
 terraform {
   required_providers {
     aws = {
@@ -11,8 +19,8 @@ provider "aws" {
   region = "us-east-1"
 }
 
-variable "tf-ami" {
-  type = list(string)
+variable "tf-ami" { 
+  type = list(string)                                         # It is stated that the type of the variable is a list and the items in this list are of text (string) type.                          
   default = ["ami-051f7e7f6c2f40dc1", "ami-053b0d53c279acc90", "ami-026ebd4cfe2c043b2"]
 }
 
@@ -21,18 +29,18 @@ variable "tf-tags" {
   default = ["aws-linux-2023", "ubuntu-22.04", "red-hat-linux-9"]
 }
 
-resource "aws_instance" "tf-instances" {
-  ami = element(var.tf-ami, count.index )
+resource "aws_instance" "tf-instances" {                       # In order to import, the resource block and the existing resource must have the same content.
+  ami = element(var.tf-ami, count.index )                      # 'var.tf-ami' değişkeni içinde bulunan AMI'ların, 'count.index' değeri kadar elemanlarını sırayla kullanır.
   instance_type = "t2.micro"
   count = 3
   key_name = "second-key-pair"            // change here
   vpc_security_group_ids = [ aws_security_group.tf-sg.id ]
   tags = {
-    Name = element(var.tf-tags, count.index )
+    Name = element(var.tf-tags, count.index )                  # 'var.tf-tags' değişkeni içinde bulunan etiketler, 'count.index' değeri kadar elemanlarını sırayla kullanır.
   }
 }
 
-resource "aws_security_group" "tf-sg" {
+resource "aws_security_group" "tf-sg" {                       # In order to import, the resource block and the existing resource must have the same content.
   name = "tf-import-sg"
   description = "terraform import security group"
   tags = {
