@@ -1,6 +1,6 @@
 provider "aws" {
   region = "us-east-1"
-}
+}                                                        # The terraform block is not written to the modules so that everyone can use the block they want or to use the current block.
 
 resource "aws_vpc" "module_vpc" {
   cidr_block = var.vpc_cidr_block
