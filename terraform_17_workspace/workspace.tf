@@ -3,17 +3,17 @@ provider "aws" {
 }
 
 resource "aws_instance" "tfmyec2" {
-  ami = lookup(var.myami, terraform.workspace)
-  instance_type = "${terraform.workspace == "dev" ? "t3a.medium" : "t2.micro"}"
-  count = "${terraform.workspace == "prod" ? 3 : 1}"
-  key_name = "<your-pem-file>"
+  ami = lookup(var.myami, terraform.workspace)                                      # var.myami değişkenindeki haritalamayı kullanarak çalışma alanına özgü AMI (Amazon Machine Image) ID'sini belirler. terraform.workspace, şu anki çalışma alanını temsil eder.
+  instance_type = "${terraform.workspace == "dev" ? "t3a.medium" : "t2.micro"}"     # Eğer çalışma alanı "dev" ise "t3a.medium", değilse "t2.micro" kullanılır.
+  count = "${terraform.workspace == "prod" ? 3 : 1}"                                # Eğer çalışma alanı "prod" ise 3 örnek oluşturulur, değilse 1 örnek oluşturulur.
+  key_name = "second-key-pair"
   tags = {
     Name = "${terraform.workspace}-server"
   }
 }
 
 variable "myami" {
-  type = map(string)
+  type = map(string)                      # (map) terimi, bir dizi anahtar-değer çiftini içeren veri yapısını ifade eder.
   default = {
     default = "ami-051f7e7f6c2f40dc1"
     dev     = "ami-026ebd4cfe2c043b2"
