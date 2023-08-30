@@ -20,3 +20,11 @@ variable "myami" {
     prod    = "ami-053b0d53c279acc90"
   }
   description = "in order of an Amazon Linux 2023 ami, Red Hat Enterprise Linux 8 ami, and Ubuntu Server 22.04 LTS ami's"
+
+
+#  terraform workspace --help
+#  terraform workspace list
+#  terraform workspace show
+#  terraform workspace new dev
+#  terraform workspace select dev
+#  terraform workspace delete dev
