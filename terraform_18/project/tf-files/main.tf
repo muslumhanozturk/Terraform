@@ -39,7 +39,7 @@ resource "aws_launch_template" "asg-lt" {
   instance_type = "t2.micro"
   key_name = var.key-name
   vpc_security_group_ids = [aws_security_group.server-sg.id]
-  user_data = base64encode(templatefile("user-data.sh", {user-data-git-token = var.git-token, user-data-git-name = var.git-name}))      # We use base64encode variables because we know them.
+  user_data = base64encode(templatefile("user-data.sh", {user-data-git-token = var.git-token, user-data-git-name = var.git-name}))      # We use the base64 encode command because we can introduce the variables.
   depends_on = [github_repository_file.dbendpoint]
   tag_specifications {
     resource_type = "instance"
