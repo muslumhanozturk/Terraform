@@ -1,3 +1,0 @@
-variable "token" {
-    default = "xxxxxxxxxxxxxxxxxxxxxxxx"  
-}
