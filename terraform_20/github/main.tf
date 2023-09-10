@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+variable "token" {
+  default = "xxxxxxxxxxxxxxxxxxxxxxx"
+}
+
 provider "github" {
   token = var.token
 }
