@@ -1,18 +1,9 @@
-# Associate the S3 package with the Dynamodb table.
 terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
       version = "5.14.0"
     }
-  }
-
-  backend "s3" {
-    bucket = "tf-remote-s3-bucket-mhan"              # is the Amazon S3 bucket where the stop files will be stored.
-    key = "env/dev/tf-remote-backend.tfstate"        # Specifies the path to the stop file.
-    region = "us-east-1"
-    dynamodb_table = "tf-s3-app-lock"
-    encrypt = true
   }
 }
 
@@ -30,18 +21,18 @@ variable "ec2-type" {
     default = "t2.micro"
 }
 
-data "aws_ami" "tf_ami" {
-  most_recent = true
-  owners = ["self"]
+data "aws_ami" "tf_ami" {         # This line defines a new aws_ami datasource in the data block.This resource is used to query AWS AMIs and select those with certain characteristics.
+  most_recent = true              # This parameter enables the selection of the most recently created AMI. So it chooses the most recent one.
+  owners = ["self"]               # "self" here refers to your current account. i.e. it is used to import AMIs that you create yourself.
 
-  filter {
-    name = "virtualization-type"
-    values = ["hvm"]
+  filter {                        # Filters are used to query AMIs based on the properties you want.
+    name = "virtualization-type"  # Wants to filter AMIs by virtualization type
+    values = ["hvm"]              # It will select AMIs with virtualization type "hvm" (Hardware Virtual Machine).
   }
 
   filter {
-    name = "architecture"
-    values = ["x86_64"]
+    name = "architecture"         # Used to query AMIs by architecture.
+    values = ["x86_64"]           # It will select AMIs with x86_64 architecture.
   }
   
 }
@@ -55,12 +46,3 @@ resource "aws_instance" "tf-ec2" {
     }
   
 }
-
-# resource "aws_s3_bucket" "tf-test-1" {               # When we apply these two resource codes in turn, we see that the .tfstate file in the s3 bucket is versioned.
-#   bucket = "clarusway-test-1-versioning"
-# }
-
-# resource "aws_s3_bucket" "tf-test-2" {
-#   bucket = "clarusway-test-2-versioning"
-# }
-
